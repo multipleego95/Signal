@@ -1,0 +1,45 @@
+<header>
+    <h2 style="font-size: 25px; color:#D96A80">[ 당신이 재밌게 읽은 책의 바코드를 알려주세요! ]</h2>
+</header>
+<p style="text-align: center; font-size: 20px;">
+    당신의 취향과 유사한 웹소설을 추천해드릴게요
+</p>
+<div id="loading-overlay">
+    <div id="loading-spinner"></div>
+  </div>
+<section>
+    <div class="row">
+        <div class="camera">
+            <!-- <img class="image fit" src="images/camera.png" alt=""> -->
+
+            <div id="fileName" style="text-align: center;"></div> <!-- 파일 이름을 보여줄 div -->
+            <div id="image-show" style="text-align: center;"></div> <!-- 이미지를 보여줄 div -->
+
+            
+                <div class="button" style="background: none;">
+                    <label for="chooseFile" style="color:#D96A80;">
+                        👉 DROP & CLICK HERE! 👈
+                    </label>
+                </div>
+                <input type="file" id="chooseFile" name="chooseFile" accept="image/*"
+                    onchange="loadFile(this)">
+                <form method="get" enctype="multipart/form-data" style="text-align: center;" action="/input_isbn">
+                <div>
+                    <div class="num" style="text-align: left;">
+                        <input id="isbn" name="isbn" type="text" placeholder="ISBN 식별번호 13자리"
+                        onfocus="this.placeholder = ''" onblur="this.placeholder = 'ISBN 식별번호 13자리'">
+                    </div>
+                    <br>
+                    <input type="button" id="btnSubmit" value="OK"style="text-align:right"/>
+                </div>
+                    
+                <div id="drop"> 
+                    <i class="fas fa-camera" style="font-size: 100px;"></i>
+                </div>
+
+                
+
+            </form>
+        </div>
+    </div>
+</section>

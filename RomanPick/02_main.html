@@ -10,11 +10,14 @@
 	<title>RomanPick</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link rel="stylesheet" href="assets/css/main.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<link rel="stylesheet" href="{{ url_for('RomanPick', path='/assets/css/main.css') }}" />
 	<noscript>
-		<link rel="stylesheet" href="assets/css/noscript.css" />
+	   <link rel="stylesheet" href="{{ url_for('RomanPick', path='assets/css/noscript.css') }}" />
 	</noscript>
-</head>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+ 
+ </head>
 
 <body class="is-preload">
 
@@ -23,10 +26,10 @@
 
 		<!-- Nav -->
 		<nav id="nav">
-			<a href="#" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
-			<a href="#barcode" class="icon solid fa-barcode" style="color: #D96A80;"><span>Barcode</span></a>
+			<a href="/main" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
+			<a href="#home" class="icon solid fa-heart" style="color: #D96A80;"><span>Heart</span></a>
+			<a href="#barcode" class="icon solid fa-camera" style="color: #D96A80;"><span>Barcode</span></a>
 			<a href="#emotion" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
-			<a href="#game" class="icon solid fa-gamepad" style="color: #D96A80;"><span>Game</span></a>
 		</nav>
 
 		<!-- Main -->
@@ -34,97 +37,103 @@
 
 			<!-- Me -->
 			<article id="home" class="panel intro">
-				<!-- <header>
-					<div style="text-align:center;">
+				<header>
+					<div style="text-align:center;" id="cluster">
 						<div class="label_back">
-							<img src="images/lable1.png" alt="">
-
+							<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
 							<div class="image-container">
-								<div>
-									<img src="images/l_red.png" alt="">
+								<div class="image-item">
+									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_red.png') }}" alt="">
+									<div class="overlay">
+										<span class="text">label1</span>
+									</div>
 								</div>
-								<div>
-									<img src="images/l_purple.png" alt="">
+								<div class="image-item">
+									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_purple.png') }}" alt="">
+									<div class="overlay">
+										<span class="text">label2</span>
+									</div>
 								</div>
-								<div>
-									<img src="images/l_orange.png" alt="">
+								<div class="image-item">
+									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_orange.png') }}" alt="">
+									<div class="overlay">
+										<span class="text">label3</span>
+									</div>
 								</div>
-								<div>
-									<img src="images/l_yellow.png" alt="">
+								<div class="image-item">
+									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_yellow.png') }}" alt="">
+									<div class="overlay">
+										<span class="text">label4</span>
+									</div>
 								</div>
-								<div>
-									<img src="images/l_green.png" alt="">
+								<div class="image-item">
+									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_green.png') }}" alt="">
+									<div class="overlay">
+										<span class="text">label5</span>
+									</div>
 								</div>
-								<div>
-									<img src="images/l_blue.png" alt="">
+								<div class="image-item">
+									<img class="thumbnail" src="{{ url_for('RomanPick', path='images/l_blue.png') }}" alt="">
+									<div class="overlay">
+										<span class="text">label6</span>
+									</div>
 								</div>
 							</div>
-							
 						</div>
 					</div>
-				</header> -->
-
-				<header>
-					<div style="text-align:center;">
-						<div class="label_back">
-							<img src="images/lable1.png" alt="">
-							<div class="image-container">
-								<div class="image-item">
-									<img class="thumbnail" src="images/l_red.png" alt="">
-									<div class="overlay">
-										<span class="text">Red Image</span>
+					<div id="cluster-data" style="display:none">
+						<nav id="nav">
+							<a href="#"><i class="fas fa-heart" style="color: #F85B6C;"></i><span>label1</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #C664F9;"></i><span>label2</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #FBC774;"></i><span>label3</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #FAED6D;"></i><span>label4</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #3BE0D9;"></i><span>label5</span></a>
+							<a href="#"><i class="fas fa-heart" style="color: #5CC6F6;"></i><span>label6</span></a>
+						</nav>
+						<div style="text-align:center;">
+	
+							<div class="label_back">
+								<div style="position: relative;">
+									<img src="{{ url_for('RomanPick', path='images/lable1.png') }}" alt="">
+	
+									<button id="refreshButton" style="z-index: 1;">
+										<i class="fas fa-sync-alt"></i>
+									</button>
+	
+									<div class="canvas-container">
+	
+										<canvas id="textCanvas"></canvas>
+	
 									</div>
 								</div>
-								<div class="image-item">
-									<img class="thumbnail" src="images/l_purple.png" alt="">
-									<div class="overlay">
-										<span class="text">Purple Image</span>
-									</div>
-								</div>
-								<div class="image-item">
-									<img class="thumbnail" src="images/l_orange.png" alt="">
-									<div class="overlay">
-										<span class="text">Orange Image</span>
-									</div>
-								</div>
-								<div class="image-item">
-									<img class="thumbnail" src="images/l_yellow.png" alt="">
-									<div class="overlay">
-										<span class="text">Yellow Image</span>
-									</div>
-								</div>
-								<div class="image-item">
-									<img class="thumbnail" src="images/l_green.png" alt="">
-									<div class="overlay">
-										<span class="text">Green Image</span>
-									</div>
-								</div>
-								<div class="image-item">
-									<img class="thumbnail" src="images/l_blue.png" alt="">
-									<div class="overlay">
-										<span class="text">Blue Image</span>
-									</div>
-								</div>
+	
+								
+	
 							</div>
 						</div>
+					</div>
+					<div id="backBtn" style=" width: auto; padding:1.5em 0em 0em 0em; text-align: center; display: none;">
+						<a class="btn" href="/main" style="text-align: center;">
+						   <i class="fas fa-backspace" style="color: #D96A80; font-size: xx-large;"></i>
+						</a>
 					</div>
 				</header>
-
+				
+				
 
 
 				<article id="contact" class="panel" style="text-align: center; margin-bottom: 20px;">
-					<form class="search" style="background:none;">
+					<form class="search" style="background:none;" action="/search" method="post">
 						<div style="float: left; width: 30%; padding:10px;">
-							<select style="background: none; text-align: center;">
-								<option id="all" value="all">▼ 전 체</option>
+							<select style="background: none; text-align: center;" name="category">
+								<option id="all" value="all" selected hidden >▼ 선 택</option>
 								<option id="title" value="title"> 제 목</option>
-								<option id="writer" value="writer"> 작 가</option>
-								<option id="keyword" value="keyword"> 키워드</option>
+								<option id="keyword" value="keyword"> 내 용</option>
 							</select>
 						</div>
 
 						<div style="float: left; width: 40%; padding:10px;">
-							<input class="enter" type="text" name="search" maxlength="255" placeholder="검색어 입력"
+							<input class="enter" type="text" name="input_text" maxlength="255" placeholder="검색어 입력"
 								onfocus="this.placeholder = ''" onblur="this.placeholder = '검색어 입력'"
 								style="background: none; display:inline-block">
 						</div>
@@ -137,81 +146,12 @@
 					</form>
 				</article>
 			</article>
-
-
-
+			
 			<!-- barcode -->
-			<article id="barcode" class="panel">
-				<header style="">
-					<h2 style="font-size: 25px; color:#D96A80">[ 당신이 재밌게 읽은 책의 바코드를 알려주세요! ]</h2>
-				</header>
-				<p style="text-align: center; font-size: 20px;">
-					당신의 취향과 유사한 웹소설을 추천해드릴게요
-				</p>
-
-				<section>
-					<div class="row">
-						<div class="camera">
-							<!-- <img class="image fit" src="images/camera.png" alt=""> -->
-
-							<div id="fileName" style="text-align: center;"></div> <!-- 파일 이름을 보여줄 div -->
-							<div id="image-show" style="text-align: center;"></div> <!-- 이미지를 보여줄 div -->
-
-							<form method="post" enctype="multipart/form-data" style="text-align: center;">
-								<div class="button" style="background: none;">
-									<label for="chooseFile" style="color:#D96A80">
-										👉 CLICK HERE! 👈
-									</label>
-								</div>
-								<input type="file" id="chooseFile" name="chooseFile" accept="image/*"
-									onchange="loadFile(this)">
-
-								<div class="num">
-									<input id="barcode" type="text" placeholder="바코드 식별번호 13자리"
-										onfocus="this.placeholder = ''" onblur="this.placeholder = '바코드 식별번호 13자리'">
-								</div>
-
-								<div id="drop"> 바코드 사진 Drag & Drop
-									<div id="thumbnails">
-									</div>
-								</div>
-
-								<input type="button" id="btnSubmit" value="OK" />
-
-							</form>
-						</div>
-					</div>
-				</section>
-
-			</article>
+			<article id="barcode" class="panel"></article>
 
 			<!-- emotion -->
-			<article id="emotion" class="panel">
-				<header>
-					<h2>Contact Me</h2>
-				</header>
-				<form action="#" method="post">
-					<div>
-						<div class="row">
-							<div class="col-6 col-12-medium">
-								<input type="text" name="name" placeholder="Name" />
-							</div>
-							<div class="col-6 col-12-medium">
-								<input type="text" name="email" placeholder="Email" />
-							</div>
-							<div class="col-12">
-								<input type="text" name="subject" placeholder="Subject" />
-							</div>
-							<div class="col-12">
-								<textarea name="message" placeholder="Message" rows="6"></textarea>
-							</div>
-							<div class="col-12">
-								<input type="submit" value="Send Message" />
-							</div>
-						</div>
-					</div>
-				</form>
-			</article>
+			<article id="emotion" class="panel"></article>
 
 			<!-- Me -->
 			<article id="game" class="panel intro">
@@ -231,71 +171,112 @@
 
 		</div>
 
-		<!-- Footer -->
-		<div id="footer">
-			<ul class="copyright">
-				<li>&copy; Untitled.</li>
-				<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-			</ul>
-		</div>
+		
 
 	</div>
 
 	<!-- Scripts -->
-
+	<!-- <script src="{{ url_for('RomanPick', path='assets/js/jquery.min.js') }}"></script> -->
+	<script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/barcode.js') }}"></script>
 	<script>
-		const Searching = Search.prototype;
+		$(document).ready(function(){
+			$.ajax({
+				url: '/RomanPick/02-2_emotion.html',
+				type: 'GET',
+				dataType: 'html',
+				success: function(response) {
+				  $('#emotion').html(response);
+				}
+			  });
+			  $.ajax({
+				url: '/RomanPick/02-1_barcode.html',
+				type: 'GET',
+				dataType: 'html',
+				success: function(response) {
+				  $('#barcode').html(response);
+				}
+			  });
+		})
 
-		function Searching() {
-			this.keyword = document.querySelector('input[name = "search"]');
-			this.engine = document.querySelector('.SelectSearch');
-			this.button = document.querySelector('.img-button');
-			this.form = document.querySelector('.search');
+	
+		$('.img-btn').click(function(e){
+			if($('select[name="category"]').val() == 'all'){
+				e.preventDefault();
+				alert('카테고리를 골라주세요');
+			}else if($('.enter').val() ==''){
+				e.preventDefault();
+				alert('검색어를 입력해주세요')
+			}
+		})
+	</script>
+
+	<!-- 하트 이미지 클릭하면 동적테스트 페이지로 이동 -->
+	<script>
+		// 라벨에 따른 랜덤 데이터 생성, 캔버스 출력 ajax 함수
+		function label_random_data(label) {
+			// 캔버스 초기화
+			$('.canvas-container').empty();
+			var canvas = $('<canvas></canvas>').attr('id', 'textCanvas');
+			$('.canvas-container').append(canvas);
+			// 라벨의 데이터 불러오기
+			$.ajax({
+			url : "/main/"+label,
+			type:"get",
+			success:function(data){
+				// 라벨에서 랜덤한 데이터(제목, 줄거리 키워드) 
+				// canvas에 텍스트 데이터 저장
+				$.ajax({
+					url:"{{ url_for('RomanPick', path='assets/js/canvas.js') }}",
+					dataType:'script',
+					success:function(result){
+						create_canvas(data.textList,label)
+						// 브라우저 사이즈 조정 시 캔버스 크기도 조정
+						$(window).on('resize', function() {
+							$('.canvas-container').empty();
+							var canvas = $('<canvas></canvas>').attr('id', 'textCanvas');
+							$('.canvas-container').append(canvas);
+							create_canvas(data.textList,label);
+						});
+					}
+				})
+			}
+		})
+	}
+	$('#cluster-data #nav a').click(function(e){
+		e.preventDefault();
+		if($(this).hasClass('active')){
+			return;
+		}else{
+			// 다른 라벨 선택 시 해당 라벨에 대한 canvas 출력
+			$('#cluster-data #nav a').removeClass('active');
+			$(this).addClass('active');
+			var changeLabel = $(this).children('span').text();
+			label_random_data(changeLabel);
 		}
-
-		new Search();
+	})
+		$('.image-item').click(function(e){
+			e.preventDefault();
+			var label = $(this).find('.text').text();
+			label_random_data(label)
+			$('#cluster').css('display', 'none');
+			$('#contact').css('display', 'none');
+			$('#backBtn').toggle();
+			$('#cluster-data').toggle();
+			$('#cluster-data #nav a span').each(function() {
+				if ($(this).text() == label) {
+				  $(this).parent('a').addClass('active');
+				}
+			  });
+			$('#refreshButton').click(function(e){
+				label_random_data(label)
+			})
+		});
+		
 	</script>
-
-	<!-- 바코드 사진업로드 -->
-	<script>
-		function loadFile(input) {
-			var file = input.files[0];   //선택된 파일 가져오기
-
-			//미리 만들어 놓은 div에 text(파일 이름) 추가
-			var name = document.getElementById('fileName');
-			name.textContent = file.name;
-
-			//새로운 이미지 div 추가
-			var newImage = document.createElement("img");
-			newImage.setAttribute("class", 'img');
-
-			//이미지 source 가져오기
-			newImage.src = URL.createObjectURL(file);
-
-			newImage.style.width = "70%";
-			newImage.style.height = "70%";
-			newImage.style.objectFit = "contain";
-
-			//이미지를 image-show div에 추가
-			var container = document.getElementById('image-show');
-			container.innerHTML = ''; // 기존 이미지 삭제
-			container.appendChild(newImage);
-
-			newImage.onload = function () {
-				newImage.style.visibility = "visible"; // 이미지 로딩 완료 후 보이도록 설정
-			};
-		};
-	</script>
-
-	<!-- drag & drop -->
-
-
-	<script src="assets/js/jquery.min.js"></script>
-	<script src="assets/js/browser.min.js"></script>
-	<script src="assets/js/breakpoints.min.js"></script>
-	<script src="assets/js/util.js"></script>
-	<script src="assets/js/main.js"></script>
 
 </body>
-
 </html>

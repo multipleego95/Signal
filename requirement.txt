@@ -1,0 +1,13 @@
+requests
+beautifulsoup4
+pandas
+tensorflow
+numpy==1.19.5
+scikit-learn
+transformers
+torch
+konlpy
+opencv-python
+Pillow
+python-multipart
+nltk

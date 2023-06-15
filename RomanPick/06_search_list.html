@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<!--
+   Astral by HTML5 UP
+   html5up.net | @ajlkn
+   Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+   <title>RomanPick</title>
+   <meta charset="utf-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+   <link rel="stylesheet" href="{{ url_for('RomanPick', path='/assets/css/main.css') }}" />
+	<noscript>
+		<link rel="stylesheet" href="{{ url_for('RomanPick', path='assets/css/noscript.css') }}" />
+	</noscript>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body class="is-preload">
+
+   <!-- Wrapper-->
+   <div id="wrapper">
+      <!-- Nav -->
+      <nav id="nav">
+         <a href="/main" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
+         <a href="#barcode" class="icon solid fa-camera" style="color: #D96A80;"><span>Barcode</span></a>
+         <a href="#emotion" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+
+         <!-- Me -->
+         <article id="home" class="panel intro">
+            <header>
+               <form style="background:none;">
+                  <div id="backBtn" style="margin-top: 10px;">
+                     <a class="btn" href="/main" style="text-align: center;">
+                        <i class="fas fa-backspace" style="color: #D96A80; font-size: xx-large;"></i>
+                     </a>
+                  </div>
+               </form>
+               <h2 style="font-size: 35px; color:#D96A80; text-align: center; font-weight: bold;">
+                  [ 검색 List ]
+               </h2>
+               <p style="text-align: center; font-weight: bold; margin-top: 10px;">{{input_text}}</p>
+               
+               <hr>
+            </header>
+            
+            <div style="text-align:center; position:relative;">
+
+               <div class="container">
+                  <div>
+                     <div id="novel-list" style="border: none;"></div>
+                     <div id="loading"><i class="fas fa-spinner"></i></div>
+                  </div>
+               </div>
+         </article>
+
+         
+
+         <!-- Work -->
+         <article id="barcode" class="panel"></article>
+
+         <!-- Contact -->
+         <article id="emotion" class="panel"></article>
+
+      </div>
+
+      
+
+   </div>
+
+   <!-- 검색창 리스트 -->
+   <script>
+      $(document).ready(function(){
+			$.ajax({
+				url: '/RomanPick/02-2_emotion.html',
+				type: 'GET',
+				dataType: 'html',
+				success: function(response) {
+				  $('#emotion').html(response);
+				}
+			  });
+			  $.ajax({
+				url: '/RomanPick/02-1_barcode.html',
+				type: 'GET',
+				dataType: 'html',
+				success: function(response) {
+				  $('#barcode').html(response);
+				}
+			  });
+		})
+
+      function get_data_ajax(cur_cnt){
+         var input_text = '{{input_text}}';
+         var category = '{{category}}';
+         var novel_list = $('#novel-list');
+         var data = {
+            "input_text": input_text,
+            "category" : category,
+            "cnt" : cur_cnt
+         }
+         $.ajax({
+            url:'/search/print',
+            type:'post',
+            contentType: "application/json",
+            data:JSON.stringify(data),
+            success:function(response){
+               for(var i of response){
+                  var append_html = `<div class="novel" data-novel='${i.novel_no}'>
+                                       <img src="{{ url_for('RomanPick', path='${i.novel_cover}') }}">
+                                       <div class="novel-info">
+                                          <h3><a>< ${i.novel_nm} ></a></h3>
+                                       </div>
+                                    </div>`
+                  novel_list.append(append_html).addClass('novel');
+                  
+              }
+            }
+         })
+      }
+      $(document).ready(function(){
+         var cnt = 0;
+         get_data_ajax(cnt);
+         $(window).on('scroll', function() {
+            handleScrollRequest();
+         });
+      
+         $(window).on('resize', function() {
+            handleScrollRequest();
+         });
+
+         function handleScrollRequest() {
+            var scrollHeight = $(document).height();
+            var scrollPosition = $(window).height() + $(window).scrollTop();
+
+            if ((scrollHeight - scrollPosition) / scrollHeight === 0) {
+               cnt += 9;
+               get_data_ajax(cnt);
+            }
+         }
+
+         $(document).on('click', '.novel', function(){
+            var novel_no = $(this).attr('data-novel');
+            window.location.href = `/search/detail/${novel_no}`;
+         })
+      })
+   </script>
+    
+   <script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
+	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
+   <script src="{{ url_for('RomanPick', path='assets/js/barcode.js') }}"></script>
+</body>
+</html>

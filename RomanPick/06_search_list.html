@@ -23,7 +23,8 @@
    <div id="wrapper">
       <!-- Nav -->
       <nav id="nav">
-         <a href="/main" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
+         <a href="/main#home" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
+			<a href="#home" class="icon solid fa-heart" style="color: #D96A80;"><span>Heart</span></a>
          <a href="#barcode" class="icon solid fa-camera" style="color: #D96A80;"><span>Barcode</span></a>
          <a href="#emotion" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
       </nav>
@@ -36,7 +37,7 @@
             <header>
                <form style="background:none;">
                   <div id="backBtn" style="margin-top: 10px;">
-                     <a class="btn" href="/main" style="text-align: center;">
+                     <a class="btn" href="/main#home" style="text-align: center;">
                         <i class="fas fa-backspace" style="color: #D96A80; font-size: xx-large;"></i>
                      </a>
                   </div>
@@ -108,7 +109,11 @@
             type:'post',
             contentType: "application/json",
             data:JSON.stringify(data),
+            beforeSend:function(){
+               $('#loading').css('display', 'block');
+            },
             success:function(response){
+               $('#loading').css('display', 'none');
                for(var i of response){
                   var append_html = `<div class="novel" data-novel='${i.novel_no}'>
                                        <img src="{{ url_for('RomanPick', path='${i.novel_cover}') }}">
@@ -116,7 +121,7 @@
                                           <h3><a>< ${i.novel_nm} ></a></h3>
                                        </div>
                                     </div>`
-                  novel_list.append(append_html).addClass('novel');
+                  novel_list.append(append_html);
                   
               }
             }
@@ -143,17 +148,18 @@
             }
          }
 
-         $(document).on('click', '.novel', function(){
-            var novel_no = $(this).attr('data-novel');
-            window.location.href = `/search/detail/${novel_no}`;
-         })
+         
+      })
+      $(document).on('click', '.novel', function(){
+         var novel_no = $(this).attr('data-novel');
+         window.location.href = `/search/detail/${novel_no}`;
       })
    </script>
-    
    <script src="{{ url_for('RomanPick', path='assets/js/browser.min.js') }}"></script>
 	<script src="{{ url_for('RomanPick', path='assets/js/breakpoints.min.js') }}"></script>
 	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
 	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
    <script src="{{ url_for('RomanPick', path='assets/js/barcode.js') }}"></script>
+   <script src="{{ url_for('RomanPick', path='assets/js/emotion.js') }}"></script>
 </body>
 </html>

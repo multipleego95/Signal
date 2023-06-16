@@ -15,175 +15,6 @@
 		<link rel="stylesheet" href="{{ url_for('RomanPick', path='assets/css/noscript.css') }}" />
 	</noscript>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-   <style>
-   .modal {
-      will-change: visibility, opacity;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      overflow-y: auto;
-      overflow-x: hidden;
-      z-index: 1000;
-      visibility: hidden;
-      opacity: 0;
-      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-      transition-delay: 0.5s;
-  }
-
-  .modal--active {
-      visibility: visible;
-      opacity: 1;
-  }
-
-  .modal--align-top {
-      align-items: flex-start;
-  }
-
-  .modal__bg {
-      background: transparent;
-  }
-
-  .modal__dialog {
-      max-width: 600px;
-      padding: 1.2rem;
-  }
-
-  .modal__content {
-      will-change: transform, opacity;
-      position: relative;
-      padding: 2.4rem;
-      background: #ffebee;
-      background-clip: padding-box;
-      box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.25);
-      opacity: 0;
-      transition: all 0.25s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  .modal__content--active {
-      opacity: 1;
-  }
-
-  .modal__close {
-      z-index: 1100;
-      cursor: pointer;
-  }
-  .modal__close:hover {
-   color: #ffebee;
-  }
-
-  .modal__trigger {
-      position: relative;
-      display: inline-block;
-      padding: 1.2rem 2.4rem;
-      color: rgba(0, 0, 0, 0.7);
-      line-height: 1;
-      cursor: pointer;
-      background: #ffebee;
-      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-      user-select: none;
-      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  .modal__trigger--active {
-      z-index: 10;
-  }
-
-  .modal__trigger:hover {
-      background: #e5d3d6;
-  }
-
-  #modal__temp {
-      will-change: transform, opacity;
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #ffebee;
-      transform: none;
-      opacity: 1;
-      transition: opacity 0.1s ease-out, transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  /** * Demo specific CSS */
-  /* body {
-      height: 100vh;
-      background: #f44336;
-  } */
-
-  img {
-      max-width: 100%;
-  }
-
-  .demo-btns header {
-      padding: 7vh 10vw;
-      background: #ffebee;
-      display: flex;
-      align-items: center;
-  }
-
-  .demo-btns header h1 {
-      margin: 0;
-      color: rgba(0, 0, 0, 0.54);
-      font-weight: 300;
-  }
-
-  .demo-btns .info {
-      background: none;
-      height: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-flow: column wrap;
-  }
-
-  .demo-btns p {
-      text-align: center;
-      color: #fff;
-  }
-
-  .demo-btns .link {
-      font-size: 20px;
-  }
-
-  .demo-btns .modal__trigger {
-      margin-right: 3px;
-  }
-
-  @media (max-width: 640px) {
-      .demo-btns .modal__trigger {
-          margin-bottom: 0.8rem;
-      }
-  }
-
-  .demo-close {
-      position: absolute;
-      top: 0;
-      right: 0;
-      margin: 1.2rem;
-      padding: 0.6rem;
-      background: rgba(0, 0, 0, 0);
-      border-radius: 50%;
-      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  .demo-close svg {
-      width: 24px;
-      fill: rgba(0, 0, 0, 0.6);
-      pointer-events: none;
-      vertical-align: top;
-  }
-
-  .demo-close:hover {
-      background: rgba(0, 0, 0, 0.6);
-  }
-</style>
 </head>
 
 <body class="is-preload">
@@ -194,7 +25,7 @@
 
       <!-- Nav -->
       <nav id="nav">
-         <a href="/main" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
+         <a href="/main#home" class="icon solid fa-home" style="color: #D96A80;"><span>RomanPick</span></a>
 			<a href="#home" class="icon solid fa-heart" style="color: #D96A80;"><span>Heart</span></a>
          <a href="#barcode" class="icon solid fa-camera" style="color: #D96A80;"><span>Barcode</span></a>
          <a href="#emotion" class="icon solid fa-smile" style="color: #D96A80;"><span>Emotion</span></a>
@@ -225,9 +56,9 @@
                            </div>
                            <div class="col-md-6">
                               <div class="title-container">
-                                 <a class="title">< {{data['novel_nm']}} ></a>
+                                 <a class="title"></a>
                                  <hr>
-                                 <a class="content">{{data['novel_synopsis']}}
+                                 <a class="content">
                                  </a><br>
                                  <a href="#" id="show-more" style="font-size: 0.9rem; color: black; text-decoration-line: none; display: none;">&nbsp; &nbsp; &nbsp; &nbsp;< 더 보기 ></a>
                               </div>
@@ -239,124 +70,131 @@
 
                   <hr id="title_hr">
                   <br>
+                  
                   <div class="list-grid">
+                     <div id="loading-overlay_barcode">
+                        <div id="loading-spinner"></div>
+                      </div>
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel1" class="image fit">
-                           <img src="{{ url_for('RomanPick', path='images/pic12.jpg') }}" alt="">
+                           <img src="" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="#" id="title-a"></a>
                      </div>
                      
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel2" class="image fit">
-                           <img src="{{ url_for('RomanPick', path='images/pic11.jpg') }}" alt="">
+                           <img src="" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="#" id="title-a"></a>
                      </div>
                      
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel3" class="image fit">
-                           <img src="{{ url_for('RomanPick', path='images/pic10.jpg') }}" alt="">
+                           <img src="" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="#" id="title-a"></a>
                      </div>
                      
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel4" class="image fit">
-                           <img src="{{ url_for('RomanPick', path='images/pic09.jpg') }}" alt="">
+                           <img src="" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="#" id="title-a"></a>
                      </div>
 
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel5" class="image fit">
-                           <img src="{{ url_for('RomanPick', path='images/pic08.jpg') }}" alt="">
+                           <img src="" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="#" id="title-a"></a>
                      </div>
 
                      <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
                         <a href="#" id="novel6" class="image fit">
-                           <img src="{{ url_for('RomanPick', path='images/pic07.jpg') }}" alt="">
+                           <img src="" alt="">
                         </a>
-                        <a href="#" id="title-a">제목</a>
+                        <a href="#" id="title-a"></a>
                      </div>
-                     <div id="modal2" class="modal modal--align-top modal__bg" role="dialog" aria-hidden="true">
-                        <div class="modal__dialog">
-                            <div class="modal__content">
-                                <h3 style="font-weight:bold; font-size: 30px;">제목</h3>
-                                <hr>
-                                <p><img src="http://unsplash.it/600/300" alt="" /></p>
-                                <h6 style="font-size:15px; text-align:justify">
-                                    줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
-                                    줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
-                                    줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
-                                </h6>
-                                
-                                
-                                <!-- modal close button -->
-                                <a href="" class="modal__close demo-close">
-                                    <svg class="" viewBox="0 0 24 24">
-                                        <path
-                                            d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z" />
-                                        <path d="M0 0h24v24h-24z" fill="none" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                     
                </div>
+               
             </header>
             <header class="keyword_h" style="display: none;">
-               <h2 style="font-size: 35px; color:#D96A80; text-align: center; font-weight: bold;">[ KeyWord ]</h2>
-               <p style="text-align: center; font-weight: bold;">남사친</p> 
+               <h2 class="title_key" style="font-size: 35px; color:#D96A80; text-align: center; font-weight: bold;">[ KeyWord ]</h2>
+               <p id="keywod_title" style="text-align: center; font-weight: bold;"></p> 
                  
                <hr id="keyword_hr">
                  
                <div style="text-align:center; position:relative;">
                   <div class="list-grid">
                   
-                     <div class="col-4 col-6-medium col-12-small">
-                        <a href="#" class="image fit">
+                     <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
+                        <a href="#" id="novell1" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic12.jpg') }}" alt="">
                         </a>
                         <a href="" id="title-a">제목</a>
                      </div>
-                     <div class="col-4 col-6-medium col-12-small">
-                        <a href="#" class="image fit">
+                     <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
+                        <a href="#" id="novell2" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic11.jpg') }}" alt="">
                         </a>
                         <a href="" id="title-a">제목</a>
                      </div>
-                     <div class="col-4 col-6-medium col-12-small">
-                        <a href="#" class="image fit">
+                     <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
+                        <a href="#" id="novell3"class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic10.jpg') }}" alt="">
                         </a>
                         <a href="" id="title-a">제목</a>
                      </div>
-                     <div class="col-4 col-6-medium col-12-small">
-                        <a href="#" class="image fit">
+                     <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
+                        <a href="#" id="novell4" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic09.jpg') }}" alt="">
                         </a>
                         <a href="" id="title-a">제목</a>
                      </div>
-                     <div class="col-4 col-6-medium col-12-small">
-                        <a href="#" class="image fit">
+                     <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
+                        <a href="#" id="novell5" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic08.jpg') }}" alt="">
                         </a>
                         <a href="" id="title-a">제목</a>
                      </div>
-                     <div class="col-4 col-6-medium col-12-small">
-                        <a href="#" class="image fit">
+                     <div class="col-4 col-6-medium col-12-small" data-modal="#modal2">
+                        <a href="#" id="novell6" class="image fit">
                            <img src="{{ url_for('RomanPick', path='images/pic07.jpg') }}" alt="">
                         </a>
                         <a href="" id="title-a">제목</a>
                      </div>
                   </div>
                </div>
+               
             </header>
 
-            
+            <div id="modal2" class="modal modal--align-top modal__bg" role="dialog" aria-hidden="true">
+               <div class="modal__dialog">
+                   <div class="modal__content">
+                       <h3 style="font-weight:bold; font-size: 30px;">제목</h3>
+                       <hr>
+                       <p><img src="http://unsplash.it/600/300" alt="" /></p>
+                       <h6 style="font-size:15px; text-align:justify">
+                           줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
+                           줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
+                           줄거리줄거리줄거리줄거리줄거리줄거리줄거리줄거리
+                       </h6>
+                       
+                       
+                       <!-- modal close button -->
+                       <a href="" class="modal__close demo-close">
+                           <svg class="" viewBox="0 0 24 24">
+                               <path
+                                   d="M19 6.41l-1.41-1.41-5.59 5.59-5.59-5.59-1.41 1.41 5.59 5.59-5.59 5.59 1.41 1.41 5.59-5.59 5.59 5.59 1.41-1.41-5.59-5.59z" />
+                               <path d="M0 0h24v24h-24z" fill="none" />
+                           </svg>
+                       </a>
+                   </div>
+               </div>
+           </div>
+
             <article id="contact" class="panel" style="text-align: center; margin-bottom: 20px;">
                <form style="background:none;">
                   <div id="backBtn" style="float: right; width: auto; padding:auto; text-align: center;">
@@ -366,6 +204,7 @@
                   </div>
                </form>
             </article>
+
          </article>
 
          
@@ -422,6 +261,9 @@
          if(go == "title"){
             $('.title_h').css('display', 'block');
             $('#title_img').attr('src', "{{ url_for('RomanPick', path=data['novel_cover']) }}");
+            $('.title-container').children('.title').text(`< {{data['novel_nm']}} >`);
+            $('.title-container').children('.content').text(`{{data['novel_synopsis']}}`);
+            more();
             // 선택된 소설과 유사한 소설 6개 추출 ajax
             $.ajax({
                url:"/cosine/{{data['novel_no']}}",
@@ -436,215 +278,10 @@
                         success:function(data){
                            for(var i=0; i<6; i++){
                               var novel = $(`#novel${i+1}`)
-                           novel.children('img').attr('src', `{{ url_for('RomanPick', path='${data[i].novel_cover}') }}`);
-                           novel.next().text(data[i].novel_nm);
+                              novel.children('img').attr('src', `{{ url_for('RomanPick', path='${data[i].novel_cover}') }}`);
+                              novel.next().text(data[i].novel_nm);
                            }
-                           var Modal = (function() {
-                              var trigger = $qsa('.col-4.col-6-medium.col-12-small'); // what you click to activate the modal
-                              var modals = $qs('.modal'); // the entire modal (takes up entire window)
-                              var modalsbg = $qs('.modal__bg'); // the entire modal (takes up entire window)
-                              var content = $qs('.modal__content'); // the inner content of the modal
-                              var closers = $qs('.modal__close'); // an element used to close the modal
-                              var w = window;
-                              var isOpen = false;
-                              var contentDelay = 400; // duration after you click the button and wait for the content to show
-                              var len = trigger.length;
                            
-                              // make it easier for yourself by not having to type as much to select an element
-                              function $qsa(el) {
-                              return document.querySelectorAll(el);
-                              }
-                              function $qs(el){
-                                 return document.querySelector(el);
-                              }
-                           
-                              var getId = function(event) {
-                           
-                              event.preventDefault();
-                              var self = this;
-                              var img_url = $(this).children('.image.fit').children('img').attr('src');
-                              var title = $(this).children('#title-a').text();
-                              $('#modal2 img').attr('src', `${img_url}`);
-                              for(var index in data){
-                                 if(data.hasOwnProperty(index)){
-                                    var value = data[index];
-                                    if(value['novel_nm'] == title){
-                                       var sinopsis = value['novel_synopsis'];
-                                       break;
-                                    }
-                                 }
-                              }
-                             $('.modal__content').children('h3').text('<' + title + '>');
-                             $('.modal__content').children('h6').text(sinopsis);
-                             
-
-                              // get the value of the data-modal attribute from the button
-                              var modalId = self.dataset.modal;
-                              var len = modalId.length;
-                              // remove the '#' from the string
-                              var modalIdTrimmed = modalId.substring(1, len);
-                              // select the modal we want to activate
-                              var modal = document.getElementById(modalIdTrimmed);
-                              // execute function that creates the temporary expanding div
-                              makeDiv(self, modal);
-                              };
-                           
-                              var makeDiv = function(self, modal) {
-                           
-                              var fakediv = document.getElementById('modal__temp');
-                           
-                              /**
-                                 * if there isn't a 'fakediv', create one and append it to the button that was
-                                 * clicked. after that execute the function 'moveTrig' which handles the animations.
-                                 */
-                           
-                              if (fakediv === null) {
-                                 var div = document.createElement('div');
-                                 div.id = 'modal__temp';
-                                 self.appendChild(div);
-                                 moveTrig(self, modal, div);
-                              }
-                              };
-                           
-                              var moveTrig = function(trig, modal, div) {
-                              var trigProps = trig.getBoundingClientRect();
-                              var m = modal;
-                              var mProps = m.querySelector('.modal__content').getBoundingClientRect();
-                              var transX, transY, scaleX, scaleY;
-                              var xc = w.innerWidth / 2;
-                              var yc = w.innerHeight / 2;
-                           
-                              // this class increases z-index value so the button goes overtop the other buttons
-                              //trig.classList.add('modal__trigger--active');
-                           
-                              // these values are used for scale the temporary div to the same size as the modal
-                              scaleX = mProps.width / trigProps.width;
-                              scaleY = mProps.height / trigProps.height;
-                           
-                              scaleX = scaleX.toFixed(3); // round to 3 decimal places
-                              scaleY = scaleY.toFixed(3);
-                           
-                           
-                              // these values are used to move the button to the center of the window
-                              transX = Math.round(xc - trigProps.left - trigProps.width / 2);
-                              transY = Math.round(yc - trigProps.top - trigProps.height / 2);
-                           
-                                 // if the modal is aligned to the top then move the button to the center-y of the modal instead of the window
-                              if (m.classList.contains('modal--align-top')) {
-                                 transY = Math.round(mProps.height / 2 + mProps.top - trigProps.top - trigProps.height / 2);
-                              }
-                           
-                           
-                                 // translate button to center of screen
-                                 trig.style.transform = 'translate(' + transX + 'px, ' + transY + 'px)';
-                                 trig.style.webkitTransform = 'translate(' + transX + 'px, ' + transY + 'px)';
-                                 // expand temporary div to the same size as the modal
-                                 div.style.transform = 'scale(' + scaleX + ',' + scaleY + ')';
-                                 div.style.webkitTransform = 'scale(' + scaleX + ',' + scaleY + ')';
-                           
-                           
-                                 window.setTimeout(function() {
-                                    window.requestAnimationFrame(function() {
-                                       open(m, div);
-                                    });
-                                 }, contentDelay);
-                           
-                              };
-                           
-                              var open = function(m, div) {
-                           
-                              if (!isOpen) {
-                                 // select the content inside the modal
-                                 var content = m.querySelector('.modal__content');
-                                 // reveal the modal
-                                 m.classList.add('modal--active');
-                                 // reveal the modal content
-                                 content.classList.add('modal__content--active');
-                           
-                                 /**
-                                 * when the modal content is finished transitioning, fadeout the temporary
-                                 * expanding div so when the window resizes it isn't visible ( it doesn't
-                                 * move with the window).
-                                 */
-                           
-                                 content.addEventListener('transitionend', hideDiv, false);
-                           
-                                 isOpen = true;
-                              }
-                           
-                              function hideDiv() {
-                                 // fadeout div so that it can't be seen when the window is resized
-                                 div.style.opacity = '0';
-                                 content.removeEventListener('transitionend', hideDiv, false);
-                              }
-                              };
-                           
-                              var close = function(event) {
-                           
-                                 event.preventDefault();
-                              event.stopImmediatePropagation();
-                           
-                              var target = event.target;
-                              var div = document.getElementById('modal__temp');
-                           
-                              /**
-                                 * make sure the modal__bg or modal__close was clicked, we don't want to be able to click
-                                 * inside the modal and have it close.
-                                 */
-                           
-                              if (isOpen && target.classList.contains('modal__bg') || target.classList.contains('modal__close')) {
-                           
-                                 // make the hidden div visible again and remove the transforms so it scales back to its original size
-                                 div.style.opacity = '1';
-                                 div.removeAttribute('style');
-                           
-                                    /**
-                                    * iterate through the modals and modal contents and triggers to remove their active classes.
-                                 * remove the inline css from the trigger to move it back into its original position.
-                                    */
-                           
-                                    for (var i = 0; i < len; i++) {
-                                       modals.classList.remove('modal--active');
-                                       content.classList.remove('modal__content--active');
-                                       trigger[i].style.transform = 'none';
-                                       trigger[i].style.webkitTransform = 'none';
-                                       trigger[i].classList.remove('modal__trigger--active');
-                                    }
-                           
-                                 // when the temporary div is opacity:1 again, we want to remove it from the dom
-                                    div.addEventListener('transitionend', removeDiv, false);
-                                 isOpen = false;
-                           
-                              }
-                           
-                              function removeDiv() {
-                                 setTimeout(function() {
-                                    window.requestAnimationFrame(function() {
-                                    // remove the temp div from the dom with a slight delay so the animation looks good
-                                    div.remove();
-                                    });
-                                 }, contentDelay - 50);
-                              }
-                           
-                              };
-                           
-                              var bindActions = function() {
-                              for (var i = 0; i < len; i++) {
-                                 trigger[i].addEventListener('click', getId, false);
-                                 closers.addEventListener('click', close, false);
-                                 modalsbg.addEventListener('click', close, false);
-                              }
-                              };
-                           
-                              var init = function() {
-                              bindActions();
-                              };
-                           
-                              return {
-                              init: init
-                              };
-                           
-                           }());
                            Modal.init();
             
                         }
@@ -652,28 +289,33 @@
                   
                }
             });
-            $('#backBtn').click(function(e){
-               e.preventDefault();
-               window.history.go(-1);
-               })
+            
          }else if(go == "barcode"){
             
             $('#title_img').attr('src', "{{data['novel_cover']}}")
             $('.title_h').css('display','block');
-
+            $('.title-container').children('.title').text(`< {{data['novel_nm']}} >`);
+            $('.title-container').children('.content').text(`{{data['novel_synopsis']}}`);
+            more();
             var isbn_synopsis = `{{data['novel_synopsis']}}`;
             var data = {"synposis" : isbn_synopsis};
+            
             $.ajax({
                url:'/expert_noun',
                type:'post',
                contentType: "application/json",
                data:JSON.stringify(data),
+               beforeSend:function(){
+                  $('#loading-overlay_barcode').css('display', 'flex');
+              },
                success:function(data){
+                  $('#loading-overlay_barcode').css('display', 'none');
                   for(var i=0; i<6; i++){
                      var novel = $(`#novel${i+1}`)
                   novel.children('img').attr('src', `{{ url_for('RomanPick', path='${data[i].novel_cover}') }}`);
                   novel.next().text(data[i].novel_nm);
                   }
+                  Modal.init()
                }
 
             })
@@ -684,40 +326,291 @@
             })
 
             // ajax로 데이터 전송
+         }else if(go=='keyword'){
+            $('.title_h').css('display', 'none');
+            $('.keyword_h').css('display', 'block');
+            $('#keywod_title').text(`{{data['word']}}`);
+
+            $.ajax({
+               url:'/label/keyword',
+               type:'get',
+               data:{
+                  "label": '{{label}}',
+                  "keyword": `{{data['word']}}`
+               },
+               success:function(data){
+                  for(var i=0; i<6; i++){
+                     var novel = $(`#novell${i+1}`)
+                     novel.children('img').attr('src', `{{ url_for('RomanPick', path='${data[i].novel_cover}') }}`);
+                     novel.next().text(data[i].novel_nm);
+                  }
+                  Modal.init();
+               }
+            })
+         }else if(go == "emotion"){
+            $('.title_h').css('display', 'none');
+            $('.keyword_h').css('display', 'block');
+            $('.title_key').text('[ emotion ]');
+            $('#keywod_title').text(`{{emotion}}`);
+            var data = {"emotion":"{{emotion}}"};
+            $.ajax({
+               url:'/emotion/novel',
+               type:'post',
+               contentType: "application/json",
+               data:JSON.stringify(data),
+               success:function(data){
+                  for(var i=0; i<6; i++){
+                     var novel = $(`#novell${i+1}`)
+                     novel.children('img').attr('src', `{{ url_for('RomanPick', path='${data[i].novel_cover}') }}`);
+                     novel.next().text(data[i].novel_nm);
+                  }
+                  Modal.init();
+               }
+            })
          }
       })
    </script>
    <script>
-      
+      $('#backBtn').click(function(e){
+         e.preventDefault();
+         window.history.go(-1);
+         })
        // 줄거리 더보기
        $('.image.fit').click(function(e){
          e.preventDefault();
-        
        })
-       var content = $('.content');
-       var showMoreBtn = $('#show-more');
-       var fullText = content.text();
-     
-       var maxCharacters = 100; // 최대 글자 수
-     
-       if (content.text().length > maxCharacters) {
-         var trimmedText = fullText.slice(0, maxCharacters) + '...';
-         content.text(trimmedText);
-         showMoreBtn.show();
-       }
-       
-       // 더보기 토글
-       showMoreBtn.click(function(e) {
-         e.preventDefault();
-         if (showMoreBtn.text().trim() === '< 더 보기 >') {
-            content.text(fullText);
-            showMoreBtn.html('&nbsp;&nbsp;&nbsp;&nbsp;< 접기 >')
-         }else{
+      function more() {
+         var content = $('.content');
+         var showMoreBtn = $('#show-more');
+         var fullText = content.text();
+         var maxCharacters = 100; // 최대 글자 수
+      
+         if (content.text().length > maxCharacters) {
+            var trimmedText = fullText.slice(0, maxCharacters) + '...';
             content.text(trimmedText);
-            showMoreBtn.html('&nbsp;&nbsp;&nbsp;&nbsp;< 더 보기 >')
+            showMoreBtn.show();
          }
-       });
-       
+         
+         // 더보기 토글
+         showMoreBtn.click(function(e) {
+            e.preventDefault();
+            if (showMoreBtn.text().trim() === '< 더 보기 >') {
+               content.text(fullText);
+               showMoreBtn.html('&nbsp;&nbsp;&nbsp;&nbsp;< 접기 >')
+            }else{
+               content.text(trimmedText);
+               showMoreBtn.html('&nbsp;&nbsp;&nbsp;&nbsp;< 더 보기 >')
+            }
+         });
+      }
+      var Modal = (function() {
+         var trigger = $qsa('.col-4.col-6-medium.col-12-small'); // what you click to activate the modal
+         var modals = $qs('.modal'); // the entire modal (takes up entire window)
+         var modalsbg = $qs('.modal__bg'); // the entire modal (takes up entire window)
+         var content = $qs('.modal__content'); // the inner content of the modal
+         var closers = $qs('.modal__close'); // an element used to close the modal
+         var w = window;
+         var isOpen = false;
+         var contentDelay = 400; // duration after you click the button and wait for the content to show
+         var len = trigger.length;
+      
+         // make it easier for yourself by not having to type as much to select an element
+         function $qsa(el) {
+         return document.querySelectorAll(el);
+         }
+         function $qs(el){
+            return document.querySelector(el);
+         }
+      
+         var getId = function(event) {
+      
+            event.preventDefault();
+            var self = this;
+            var img_url = $(this).children('.image.fit').children('img').attr('src');
+            var title = $(this).children('#title-a').text();
+            $('#modal2 img').attr('src', `${img_url}`);
+            data = {"img":img_url.split('RomanPick/')[1]};
+            $.ajax({
+               url:'/novel_cover_select',
+               type:'post',
+               contentType: "application/json",
+               data:JSON.stringify(data),
+               success:function(synopsis){
+                  var synopsis = synopsis;
+                  $('.modal__content').children('h6').text(synopsis);
+               }
+            })
+         
+        $('.modal__content').children('h3').text('<' + title + '>');
+        
+
+         // get the value of the data-modal attribute from the button
+         var modalId = self.dataset.modal;
+         var len = modalId.length;
+         // remove the '#' from the string
+         var modalIdTrimmed = modalId.substring(1, len);
+         // select the modal we want to activate
+         var modal = document.getElementById(modalIdTrimmed);
+         // execute function that creates the temporary expanding div
+         makeDiv(self, modal);
+         };
+      
+         var makeDiv = function(self, modal) {
+      
+         var fakediv = document.getElementById('modal__temp');
+      
+         /**
+            * if there isn't a 'fakediv', create one and append it to the button that was
+            * clicked. after that execute the function 'moveTrig' which handles the animations.
+            */
+      
+         if (fakediv === null) {
+            var div = document.createElement('div');
+            div.id = 'modal__temp';
+            self.appendChild(div);
+            moveTrig(self, modal, div);
+         }
+         };
+      
+         var moveTrig = function(trig, modal, div) {
+         var trigProps = trig.getBoundingClientRect();
+         var m = modal;
+         var mProps = m.querySelector('.modal__content').getBoundingClientRect();
+         var transX, transY, scaleX, scaleY;
+         var xc = w.innerWidth / 2;
+         var yc = w.innerHeight / 2;
+      
+         // this class increases z-index value so the button goes overtop the other buttons
+         //trig.classList.add('modal__trigger--active');
+      
+         // these values are used for scale the temporary div to the same size as the modal
+         scaleX = mProps.width / trigProps.width;
+         scaleY = mProps.height / trigProps.height;
+      
+         scaleX = scaleX.toFixed(3); // round to 3 decimal places
+         scaleY = scaleY.toFixed(3);
+      
+      
+         // these values are used to move the button to the center of the window
+         transX = Math.round(xc - trigProps.left - trigProps.width / 2);
+         transY = Math.round(yc - trigProps.top - trigProps.height / 2);
+      
+            // if the modal is aligned to the top then move the button to the center-y of the modal instead of the window
+         if (m.classList.contains('modal--align-top')) {
+            transY = Math.round(mProps.height / 2 + mProps.top - trigProps.top - trigProps.height / 2);
+         }
+      
+      
+            // translate button to center of screen
+            trig.style.transform = 'translate(' + transX + 'px, ' + transY + 'px)';
+            trig.style.webkitTransform = 'translate(' + transX + 'px, ' + transY + 'px)';
+            // expand temporary div to the same size as the modal
+            div.style.transform = 'scale(' + scaleX + ',' + scaleY + ')';
+            div.style.webkitTransform = 'scale(' + scaleX + ',' + scaleY + ')';
+      
+      
+            window.setTimeout(function() {
+               window.requestAnimationFrame(function() {
+                  open(m, div);
+               });
+            }, contentDelay);
+      
+         };
+      
+         var open = function(m, div) {
+      
+         if (!isOpen) {
+            // select the content inside the modal
+            var content = m.querySelector('.modal__content');
+            // reveal the modal
+            m.classList.add('modal--active');
+            // reveal the modal content
+            content.classList.add('modal__content--active');
+      
+            /**
+            * when the modal content is finished transitioning, fadeout the temporary
+            * expanding div so when the window resizes it isn't visible ( it doesn't
+            * move with the window).
+            */
+      
+            content.addEventListener('transitionend', hideDiv, false);
+      
+            isOpen = true;
+         }
+      
+         function hideDiv() {
+            // fadeout div so that it can't be seen when the window is resized
+            div.style.opacity = '0';
+            content.removeEventListener('transitionend', hideDiv, false);
+         }
+         };
+      
+         var close = function(event) {
+      
+            event.preventDefault();
+         event.stopImmediatePropagation();
+      
+         var target = event.target;
+         var div = document.getElementById('modal__temp');
+      
+         /**
+            * make sure the modal__bg or modal__close was clicked, we don't want to be able to click
+            * inside the modal and have it close.
+            */
+      
+         if (isOpen && target.classList.contains('modal__bg') || target.classList.contains('modal__close')) {
+      
+            // make the hidden div visible again and remove the transforms so it scales back to its original size
+            div.style.opacity = '1';
+            div.removeAttribute('style');
+      
+               /**
+               * iterate through the modals and modal contents and triggers to remove their active classes.
+            * remove the inline css from the trigger to move it back into its original position.
+               */
+      
+               for (var i = 0; i < len; i++) {
+                  modals.classList.remove('modal--active');
+                  content.classList.remove('modal__content--active');
+                  trigger[i].style.transform = 'none';
+                  trigger[i].style.webkitTransform = 'none';
+                  trigger[i].classList.remove('modal__trigger--active');
+               }
+      
+            // when the temporary div is opacity:1 again, we want to remove it from the dom
+               div.addEventListener('transitionend', removeDiv, false);
+            isOpen = false;
+      
+         }
+      
+         function removeDiv() {
+            setTimeout(function() {
+               window.requestAnimationFrame(function() {
+               // remove the temp div from the dom with a slight delay so the animation looks good
+               div.remove();
+               });
+            }, contentDelay - 50);
+         }
+      
+         };
+      
+         var bindActions = function() {
+         for (var i = 0; i < len; i++) {
+            trigger[i].addEventListener('click', getId, false);
+            closers.addEventListener('click', close, false);
+            modalsbg.addEventListener('click', close, false);
+         }
+         };
+      
+         var init = function() {
+         bindActions();
+         };
+      
+         return {
+         init: init
+         };
+      
+      }());
    </script>
    
 
@@ -726,6 +619,7 @@
 	<script src="{{ url_for('RomanPick', path='assets/js/util.js') }}"></script>
 	<script src="{{ url_for('RomanPick', path='assets/js/main.js') }}"></script>
    <script src="{{ url_for('RomanPick', path='assets/js/barcode.js') }}"></script>
+   <script src="{{ url_for('RomanPick', path='assets/js/emotion.js') }}"></script>
 </body>
 
 </html>

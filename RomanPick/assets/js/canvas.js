@@ -167,7 +167,7 @@ canvas.addEventListener('click', function(event) {
             mouseY <= textBottom
         ) {
             // 새로운 페이지로 이동
-            window.location.href = `/main/${label}/${textElements[i].text}`;
+            window.location.href = `/main/${label}/${textElements[i].text}#home`;
             break;
         }
     }

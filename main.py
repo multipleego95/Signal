@@ -51,48 +51,54 @@ def detail(request:Request, novel_no:str):
 # ajax 랜덤 데이터 추출, canvas 출력
 @app.get("/main/{item}")
 def pick_cluster(request:Request, item:str):
-    decoded_item = urllib.parse.unquote(item)
-    textList = db.random_list()
+    label = urllib.parse.unquote(item)
+    title_List = db.random_title_list(label)
+    keyword_list = db.random_keyword_list(label)
+    text_list = title_List+keyword_list
     # 이 라벨로 DB와 연결 후 랜덤 5개 제목, 랜덤 5개 키워드 추출 후 리턴
     # 비동기로 5번 키워드 추출 - 랜덤 소설의 키워드 랜덤 하나씩 총 5개
-    return {"textList" :textList}
+    return {"textList" :text_list}
 
 # DB에서 라벨에 맞는 제목이 word와 같은게 있으면 title로, 없으면 keyword로
 @app.get("/main/{item}/{word}")
 def item_title(request:Request, item:str, word:str):
-    item = urllib.parse.unquote(item)
+    label = urllib.parse.unquote(item)
     word = urllib.parse.unquote(word)
     result = db.novel_nm_select(word)
     
     if result is None:
-        # 키워드를 html과 같이 return
-        # $(document).ready()를 통해 키워드로 ajax
-        # 키워드가 포함된 소설번호의 리스트 추출
-        # 리스트 중 랜덤 6개 선택 후 정보 추출
         go = "keyword"
-        return templates.TemplateResponse('05_List_keyWord.html', {"request" : request, "go": go})
+        data = {
+            "word":word,
+            "novel_no":"",
+            "novel_nm":"",
+            "novel_writer":"",
+            "novel_synopsis":"",
+            "novel_cover": ""
+            }
+        return templates.TemplateResponse('04_List_title.html', {"request" : request, "data":data, "go": go, "label" :label})
     else:
-        sinopsis = good_text(result[3])
         data = {
             "novel_no":result[0],
             "novel_nm":result[1],
             "novel_writer":result[2],
-            "novel_synopsis":sinopsis,
+            "novel_synopsis":result[3],
             "novel_cover": result[4]
         }
         go = "title"
         # DB에서 라벨에 맞는 제목이 word와 같은게 있으면 title로, 없으면 keyword로
         return templates.TemplateResponse('04_List_title.html', {"request" : request, "data":data, "go":go})
+    
+@app.get('/label/keyword')
+def label_keyword(label:str, keyword:str):
+    novel_list = db.label_keyword(label, keyword)
+    return novel_list
 
-# 임시 title 화면
-@app.get("/main/{item}/{word}/title")
-def item_title(request:Request, item:str):
-    return templates.TemplateResponse('04_List_title.html', {"request" : request})
-
-# 임시 keyword 화면
-@app.get("/main/{item}/{word}/keyword")
-def item_title(request:Request, item:str):
-    return templates.TemplateResponse('05_List_keyWord.html', {"request" : request})
+@app.post('/novel_cover_select')
+async def novel_cover(request:Request):
+    data = await request.json()
+    synopsis = db.novel_cover_select(data.get('img'))
+    return synopsis
 
 # ajax 카메라 동영상 바코드 인식 
 @app.get("/camera_start")
@@ -159,6 +165,25 @@ async def noun_expert(request:Request):
     novel_list = db.isbn_select_novel(text_list)
     return novel_list
 
+@app.get("/select/emotion/{emotion}")
+async def select_emotion(request: Request, emotion:str):
+    emotion = urllib.parse.unquote(emotion)
+    go = "emotion"
+    data = {
+            "novel_no":"",
+            "novel_nm":"",
+            "novel_writer":"",
+            "novel_synopsis":"",
+            "novel_cover": ""
+            }
+    return templates.TemplateResponse('04_List_title.html', {"request" : request, "data":data, "go": go, "emotion" :emotion})
+
+@app.post('/emotion/novel')
+async def emotion_novel(request:Request):
+    data = await request.json()
+    novel_list = db.execute_emotion_query(data.get('emotion'))
+    return novel_list
+
 @app.get("/select/novel_no")
 def select_novel(pic_numver:int):
     return db.select_novel(pic_numver)
@@ -166,3 +191,4 @@ def select_novel(pic_numver:int):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="localhost", port=8000)
+

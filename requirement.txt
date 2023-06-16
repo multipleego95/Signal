@@ -2,7 +2,7 @@ requests
 beautifulsoup4
 pandas
 tensorflow
-numpy==1.19.5
+numpy
 scikit-learn
 transformers
 torch
